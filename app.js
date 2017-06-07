@@ -1,0 +1,118 @@
+const app = {
+    init(selectors) {
+        this.flicks=[]
+        this.max=0
+  
+        this.list=document.querySelector(selectors.listSelector)
+   
+        document.querySelector(selectors.formSelector).addEventListener('submit',this.addMovie.bind(this))
+   
+},
+    
+    addMovie(ev) {
+        ev.preventDefault()
+        const movieName= ev.target.movieName.value
+    
+        const f =ev.target
+        const flick = { 
+            id: this.max+1,
+            name: f.movieName.value,
+            good: 'meh',
+    }
+    const listItem =this.renderListItem(flick)
+    this.list.appendChild(listItem)
+
+this.flicks[this.flicks.length]=flick
+
+
+this.max++
+    },
+
+    renderListItem(flick){
+        const item =document.createElement('div')
+        const para =document.createElement('p')
+        const but = document.createElement('button')
+        item.class=flick.id
+        but.addEventListener('click',this.promote.bind(this))
+        but.style.width='70px'
+        but.style.height='100px'
+       but.textContent = 'Promote'
+       but.style.border='2px solid red'
+       but.class=flick.id
+          const delt = document.createElement('button')
+        delt.addEventListener('click',this.delete.bind(this))
+        delt.style.width='70px'
+        delt.style.height='100px'
+       delt.textContent = 'Deleate'
+       delt.style.border='2px solid red'
+       delt.class=flick.id
+       const up = document.createElement('button')
+        up.addEventListener('click',this.flickUp.bind(this))
+        up.style.width='50px'
+        up.style.height='100px'
+       up.textContent = 'Up'
+       up.style.border='2px solid red'
+       up.class=flick.id
+       const down = document.createElement('button')
+        down.addEventListener('click',this.flickDown.bind(this))
+        down.style.width='50px'
+        down.style.height='100px'
+       down.textContent = 'Down'
+       down.class=flick.id
+       down.style.border='2px solid red'
+        //item.textContent
+        para.textContent = flick.name
+        item.appendChild(para)
+        item.appendChild(but)
+        item.appendChild(delt)
+        item.appendChild(up)
+        item.appendChild(down)
+        
+        return item
+    },
+    promote(ev){
+
+ev.target.style.backgroundColor='pink'
+    },
+    delete(ev){
+        
+        console.log(ev.target)
+ console.log(document.querySelector('ul').querySelectorAll('div'))
+const listy=document.querySelector('ul').querySelectorAll('div')
+
+for(let i=0; i<listy.length;i++){
+    console.log(listy[i].id)
+    console.log(ev.target.class)
+if(listy[i].class===ev.target.class){
+console.log('ewew')
+listy[i].remove()}
+}
+
+    },
+    flickUp(ev){
+
+const listy=document.querySelector('ul').querySelectorAll('div')
+for(let i=0; i<listy.length;i++){
+    console.log(listy[i].id)
+    console.log(ev.target.class)
+if(listy[i].class===ev.target.class){
+if(i>0){
+let temp=''
+//temp=listy[i].textContent
+//listy[i].textContent=listy[i-1].textContent
+//listy[i-1].textContent=temp
+
+}
+
+
+}
+}
+
+    },
+    flickDown(ev){
+
+    }
+
+}
+app.init({formSelector: '#flick-form',
+  listSelector: '#flick-list'})
