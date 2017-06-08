@@ -23,8 +23,8 @@ const app = {
     const listItem =this.renderListItem(flick)
     this.list.appendChild(listItem)
 
-this.flicks[this.flicks.length]=flick
-
+//this.flicks[this.flicks.length]=flick
+this.flicks.push(flick)
 
 this.max++
 //f.movieName.value=''
