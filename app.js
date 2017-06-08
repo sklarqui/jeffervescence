@@ -37,6 +37,7 @@ f.reset()
        item.querySelector('.flick-name').textContent=flick.name
         item.dataset.id = flick.id
         item.classList.remove('template')
+        item.querySelector('.remove').addEventListener('click',this.removeMovie)
     return item
     //     const para =document.createElement('p')
     //     const but = document.createElement('button')
@@ -75,10 +76,12 @@ f.reset()
     //     item.appendChild(but)
     //     item.appendChild(delt)
     //     item.appendChild(up)
-    //     item.appendChild(down)
-        
-       
+    //     item.appendChild(down)     
     },
+removeMovie(ev) {
+ev.target.closest('.flick').remove()
+
+},
 //     promote(ev){
 // const but =ev.target
 // if(but.style.backgroundColor==='pink'){
