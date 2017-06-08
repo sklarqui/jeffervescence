@@ -32,6 +32,7 @@ this.max++
         const item =document.createElement('div')
         const para =document.createElement('p')
         const but = document.createElement('button')
+        
         item.class=flick.id
         but.addEventListener('click',this.promote.bind(this))
         but.style.width='70px'
@@ -71,8 +72,14 @@ this.max++
         return item
     },
     promote(ev){
+const but =ev.target
+if(but.style.backgroundColor==='pink'){
+    but.style.backgroundColor='green'
+}
+else{
 
-ev.target.style.backgroundColor='pink'
+but.style.backgroundColor='pink'
+}
     },
     delete(ev){
         
@@ -97,11 +104,11 @@ for(let i=0; i<listy.length;i++){
     console.log(ev.target.class)
 if(listy[i].class===ev.target.class){
 if(i>0){
-let temp=''
-//temp=listy[i].textContent
-//listy[i].textContent=listy[i-1].textContent
-//listy[i-1].textContent=temp
 
+temp=listy[i].querySelector('p').textContent
+listy[i].querySelector('p').textContent=listy[i-1].querySelector('p').textContent
+listy[i-1].querySelector('p').textContent=temp
+this.colorSwitch(listy[i],listy[i-1])
 }
 
 
@@ -110,8 +117,36 @@ let temp=''
 
     },
     flickDown(ev){
+const listy=document.querySelector('ul').querySelectorAll('div')
+for(let i=0; i<listy.length;i++){
+    console.log(listy[i].id)
+    console.log(ev.target.class)
+if(listy[i].class===ev.target.class){
+if(i<listy.length-1){
+temp=listy[i].querySelector('p').textContent
+listy[i].querySelector('p').textContent=listy[i+1].querySelector('p').textContent
+listy[i+1].querySelector('p').textContent=temp
+this.colorSwitch(listy[i],listy[i+1])
+//this.wordSwitch(listy[i].querySelector('p').textContent,listy[i+1].querySelector('p').textContent)
+}
 
+
+}
     }
+},
+wordSwitch(first, second){
+const temp =first
+first=second
+second=temp
+},
+colorSwitch(piece, part){
+    console.log(piece)
+console.log(piece.querySelector('button'))
+console.log(part.querySelector('button'))
+const temp=piece.querySelector('button').style.backgroundColor
+piece.querySelector('button').style.backgroundColor=part.querySelector('button').style.backgroundColor
+part.querySelector('button').style.backgroundColor=temp
+},
 
 }
 app.init({formSelector: '#flick-form',

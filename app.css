@@ -1,0 +1,38 @@
+input{
+background: linear-gradient(red, pink);
+border-radius: 1px;
+}
+button{
+    
+}
+p{
+
+width:300px;
+font-family: 'Ariel'
+
+}
+h1{
+background:linear-gradient(blue,blueviolet);
+border-radius: 6px;
+text-align: center;
+}
+div:nth-of-type(odd){
+background:linear-gradient(green,yellow);
+
+}
+div.input-group{
+
+  background:linear-gradient(coral,pink);  
+}
+div:nth-of-type(even){
+    background:linear-gradient(yellow,green);
+}
+.hey{
+ background:linear-gradient(coral,pink);  
+width:20px;
+height: 30px;
+}
+button{
+border-radius: 5px;
+
+}
