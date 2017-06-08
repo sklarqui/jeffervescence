@@ -21,10 +21,11 @@ const app = {
             good: 'meh',
     }
     const listItem =this.renderListItem(flick)
-    this.list.appendChild(listItem)
-
+   // this.list.appendChild(listItem)
+   this.list.insertBefore(listItem,this.list.firstChild)
 //this.flicks[this.flicks.length]=flick
-this.flicks.push(flick)
+//this.flicks.push(flick)
+this.flicks.unshift(flick)
 
 this.max++
 //f.movieName.value=''
@@ -33,6 +34,8 @@ f.reset()
 
     renderListItem(flick){
         const item =document.createElement('div')
+        item.dataset.id = flick.id
+
         const para =document.createElement('p')
         const but = document.createElement('button')
         
