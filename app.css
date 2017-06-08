@@ -2,9 +2,7 @@ input{
 background: linear-gradient(red, pink);
 border-radius: 1px;
 }
-button{
-    
-}
+
 p{
 
 width:300px;
@@ -34,5 +32,9 @@ height: 30px;
 }
 button{
 border-radius: 5px;
+
+}
+.template{
+visibility: hidden;
 
 }
