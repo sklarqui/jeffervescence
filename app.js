@@ -7,6 +7,7 @@ const app = {
    
         document.querySelector(selectors.formSelector).addEventListener('submit',this.addMovie.bind(this))
    
+        
 },
     
     addMovie(ev) {
@@ -26,7 +27,9 @@ this.flicks[this.flicks.length]=flick
 
 
 this.max++
-    },
+//f.movieName.value=''
+f.reset()  
+  },
 
     renderListItem(flick){
         const item =document.createElement('div')
