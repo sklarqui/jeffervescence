@@ -1,40 +1,35 @@
-input{
-background: linear-gradient(red, pink);
-border-radius: 1px;
-}
-
-p{
-
-width:300px;
-font-family: 'Ariel'
+.template{
+visibility: hidden;
 
 }
+
 h1{
 background:linear-gradient(blue,blueviolet);
 border-radius: 6px;
 text-align: center;
+font-family: Georgia, 'Times New Roman', Times, serif
 }
-div:nth-of-type(odd){
-background:linear-gradient(green,yellow);
+.flick{
+  background-color: white;
+}
+.flick:nth-of-type(even){
+  border: 2px solid orangered;
+   /* background:linear-gradient(yellow,green);*/
+}
+.flick:nth-of-type(odd){
+  border: 2px solid blueviolet;
+   /* background:linear-gradient(green,yellow);*/
+}
+body{
+  /*no repeate-stops reapeating*/
+  background-color: whitesmoke;
+  background-blend-mode: color-dodge;
+  /*background: linear-gradient(red, blue) repeat;*/
+/*background: url(https://cdn.shopify.com/s/files/1/0863/5454/products/t-rex-dinosaur-toy-small_large.jpg?v=1456416956) repeat center 40px;*/
 
 }
-div.input-group{
-
-  background:linear-gradient(coral,pink);  
-}
-div:nth-of-type(even){
-    background:linear-gradient(yellow,green);
-}
-.hey{
- background:linear-gradient(coral,pink);  
-width:20px;
-height: 30px;
-}
-button{
-border-radius: 5px;
-
-}
-.template{
-visibility: hidden;
+input{
+background: linear-gradient(pink, white);
+border-radius: 1px;
 
 }

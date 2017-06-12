@@ -17,7 +17,7 @@
     <form id = "flick-form">
         <div class="input-group">
         <input type="text" class="input-group-field" name="movieName" placeholder="Name a Flick" autofocus required>
-
+ <input type="text" class="input-group-field" name="movieYear" placeholder="What year was it created" required>
             <div class="input-group-button">
         <button type="submit" class="success button">Add movie</button>
         </div>
@@ -26,13 +26,20 @@
  <div class="row">
       <div class="medium-8 medium-offset-2 column">
         <ul id="flick-list" class ="no-bullet">
+            
             <li class = "flick template">
-               <span class="flick-name"></span>
+               <span class="flick-name" contenteditable="true"></span>
+               <span class="flick-year"></span>
                <span class="actions">
-                <button class="fav button">Fav</button>
+                <button class="favorite fav button">Fav</button>
                 
-                <button class="remove button alert">Delete</button></span>
+                <button class="remove button alert">Delete</button>
+                 <button class="up fav button">UP</button>
+                
+                <button class="down fav button">DOWN</button>
+                </span>
                 <li/>
+
         </ul>
       </div>
     </div>

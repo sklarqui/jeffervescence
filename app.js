@@ -5,12 +5,22 @@ const app = {
   
         this.list=document.querySelector(selectors.listSelector)
    this.template=document.querySelector(selectors.templateSelector)
-        document.querySelector(selectors.formSelector).addEventListener('submit',this.addMovie.bind(this))
+        document.querySelector(selectors.formSelector).addEventListener('submit',this.addMovieViaForm.bind(this))
    
-        
+      this.load()  
+},
+addFlick(flick){
+    console.log(flick)
+ const listItem =this.renderListItem(flick)
+
+   this.list.insertBefore(listItem,this.list.firstChild)
+
+this.max++
+this.flicks.unshift(flick)
+this.save()
 },
     
-    addMovie(ev) {
+    addMovieViaForm(ev) {
         ev.preventDefault()
         const movieName= ev.target.movieName.value
     
@@ -18,149 +28,196 @@ const app = {
         const flick = { 
             id: this.max+1,
             name: f.movieName.value,
-            good: 'meh',
+            year: f.movieYear.value,
+            good: 'white',
     }
-    const listItem =this.renderListItem(flick)
+this.addFlick(flick)
+f.reset()
+   
    // this.list.appendChild(listItem)
-   this.list.insertBefore(listItem,this.list.firstChild)
 //this.flicks[this.flicks.length]=flick
 //this.flicks.push(flick)
-this.flicks.unshift(flick)
 
-this.max++
+
+
 //f.movieName.value=''
-f.reset()  
+  
   },
 
     renderListItem(flick){
         const item =this.template.cloneNode(true)//document.createElement('.flick.template')
        item.querySelector('.flick-name').textContent=flick.name
+        item.querySelector('.flick-year').textContent=flick.year
         item.dataset.id = flick.id
         item.classList.remove('template')
-        item.querySelector('.remove').addEventListener('click',this.removeMovie)
-    return item
-    //     const para =document.createElement('p')
-    //     const but = document.createElement('button')
-        
-    //     item.class=flick.id
-    //     but.addEventListener('click',this.promote.bind(this))
-    //     but.style.width='70px'
-    //     but.style.height='100px'
-    //    but.textContent = 'Promote'
-    //    but.style.border='2px solid red'
-    //    but.class=flick.id
-    //       const delt = document.createElement('button')
-    //     delt.addEventListener('click',this.delete.bind(this))
-    //     delt.style.width='70px'
-    //     delt.style.height='100px'
-    //    delt.textContent = 'Deleate'
-    //    delt.style.border='2px solid red'
-    //    delt.class=flick.id
-    //    const up = document.createElement('button')
-    //     up.addEventListener('click',this.flickUp.bind(this))
-    //     up.style.width='50px'
-    //     up.style.height='100px'
-    //    up.textContent = 'Up'
-    //    up.style.border='2px solid red'
-    //    up.class=flick.id
-    //    const down = document.createElement('button')
-    //     down.addEventListener('click',this.flickDown.bind(this))
-    //     down.style.width='50px'
-    //     down.style.height='100px'
-    //    down.textContent = 'Down'
-    //    down.class=flick.id
-    //    down.style.border='2px solid red'
-    //     //item.textContent
-    //     para.textContent = flick.name
-    //     item.appendChild(para)
-    //     item.appendChild(but)
-    //     item.appendChild(delt)
-    //     item.appendChild(up)
-    //     item.appendChild(down)     
+        item.querySelector('.remove').addEventListener('click',this.removeMovie.bind(this))
+        item.querySelector('.favorite').addEventListener('click',this.promote.bind(this))
+        item.querySelector('.up').addEventListener('click',this.flipUp.bind(this))
+        item.querySelector('.down').addEventListener('click',this.flipDown.bind(this))
+        item.querySelector('.flick-name').addEventListener('input',this.edited.bind(this))
+   if(flick.good==='red'){
+       this.prom(item)
+   }
+    return item   
     },
 removeMovie(ev) {
-ev.target.closest('.flick').remove()
+const listI=ev.target.closest('.flick')
+console.log(listI)
+listI.remove()
+
+
+//remove from arrray in general splice(?,1)
+
+for(let i =0; i < this.flicks.length;i++){
+    console.log(listI.dataset.id)
+    
+    const currentId=this.flicks[i].id.toString()
+    console.log(currentId)
+if(currentId===listI.dataset.id){
+    this.flicks.splice(i,1)
+    this.save()
+    break
+}
+
+}
+//JSON
+},
+save(){
+    console.log(this.flicks)
+localStorage.setItem('flicks',JSON.stringify(this.flicks))
 
 },
-//     promote(ev){
-// const but =ev.target
-// if(but.style.backgroundColor==='pink'){
-//     but.style.backgroundColor='green'
-// }
-// else{
+load(){
+//get the json string out of local storage, 
+const flicksJSON=localStorage.getItem('flicks')
+//turn it into an array
+const flicksArray=JSON.parse(flicksJSON)
+//this.flicks=flicksArray
+console.log(flicksArray)
+if(flicksArray){
+flicksArray.reverse().map(this.addFlick.bind(this))
 
-// but.style.backgroundColor='pink'
-// }
-//     },
-//     delete(ev){
-        
-//         console.log(ev.target)
-//  console.log(document.querySelector('ul').querySelectorAll('li'))
-// const listy=document.querySelector('ul').querySelectorAll('li')
+}
+for(let i=0;i<this.flicks.length;i++){
+if(this.flicks[i].id>this.max){
+this.max=this.flicks[i].id+1
+}
+}
+},
 
-// for(let i=0; i<listy.length;i++){
-//     console.log(listy[i].id)
-//     console.log(ev.target.class)
-// if(listy[i].class===ev.target.class){
-// console.log('ewew')
-// listy[i].remove()}
-// }
+flipUp(ev){
+console.log('up')
+const listI=ev.target.closest('.flick')
+// const nod=this.list.childNode
+// if(nod[]===)
 
-//     },
-//     flickUp(ev){
+console.log(listI)
+console.log()
 
-// const listy=document.querySelector('ul').querySelectorAll('li')
-// for(let i=0; i<listy.length;i++){
-//     console.log(listy[i].id)
-//     console.log(ev.target.class)
-// if(listy[i].class===ev.target.class){
-// if(i>0){
+if(this.list.firstChild!==listI){
+const prevSib=listI.previousSibling
+this.list.insertBefore(listI,prevSib)
+console.log(prevSib)
+}
 
-// temp=listy[i].querySelector('p').textContent
-// listy[i].querySelector('p').textContent=listy[i-1].querySelector('p').textContent
-// listy[i-1].querySelector('p').textContent=temp
-// this.colorSwitch(listy[i],listy[i-1])
-// }
+for(let i =0; i < this.flicks.length;i++){
+    const currentId=this.flicks[i].id.toString()
+if(currentId===listI.dataset.id&&i>0){
+    const temp=this.flicks[i]
+    this.flicks[i]=this.flicks[i-1]
+    this.flicks[i-1]=temp
+    this.save()
+    break
+}
+
+}
+
+},
+flipDown(ev){
+console.log('down')
+const listI=ev.target.closest('.flick')
+const nextSib=listI.nextSibling
+//console.log(this.list.childNodes)
+console.log(this.list.lastChild.Sibling)
+//console.log(nextSib)
+if(this.list.lastChild.previousSibling!==listI.nextSibling){
+
+this.list.insertBefore(nextSib,listI)
+}
+
+for(let i =0; i < this.flicks.length;i++){
+    const currentId=this.flicks[i].id.toString()
+if(currentId===listI.dataset.id&&i<this.flicks.length-1){
+    console.log(this.flicks[i])
+    console.log(this.flicks[i+1])
+    const temp=this.flicks[i]
+    this.flicks[i]=this.flicks[i+1]
+    this.flicks[i+1]=temp
+    this.save()
+    break
+}
+
+}
+
+},
+promote(ev){
+console.log('prom')
+const listI=ev.target.closest('.flick')
+if(listI.style.backgroundColor!=='red'){
+listI.style.backgroundColor='red'
+}
+else{
+listI.style.backgroundColor='white'
+}
+
+for(let i =0; i < this.flicks.length;i++){
+    const currentId=this.flicks[i].id.toString()
+    console.log(currentId)
+    console.log(listI.dataset.id)
+if(currentId===listI.dataset.id){
+    
+    this.flicks[i].good=listI.style.backgroundColor
+    console.log(this.flicks[i].good)
+    this.save()
+    break
+}
+
+}
+
+},
+prom(listI){
+listI.style.backgroundColor='red'
+
+},
+edited(ev){
+console.log('edited')
+const listI=ev.target.closest('.flick')
 
 
-// }
-// }
+for(let i =0; i < this.flicks.length;i++){
+    const currentId=this.flicks[i].id.toString()
+    console.log(currentId)
+    console.log(listI.dataset.id)
+if(currentId===listI.dataset.id){
+    
+    this.flicks[i].name=ev.target.textContent
+    
+    this.save()
+    break
+}
 
-//     },
-//     flickDown(ev){
-// const listy=document.querySelector('ul').querySelectorAll('li')
-// for(let i=0; i<listy.length;i++){
-//     console.log(listy[i].id)
-//     console.log(ev.target.class)
-// if(listy[i].class===ev.target.class){
-// if(i<listy.length-1){
-// temp=listy[i].querySelector('p').textContent
-// listy[i].querySelector('p').textContent=listy[i+1].querySelector('p').textContent
-// listy[i+1].querySelector('p').textContent=temp
-// this.colorSwitch(listy[i],listy[i+1])
-// //this.wordSwitch(listy[i].querySelector('p').textContent,listy[i+1].querySelector('p').textContent)
-// }
+}
 
 
-// }
-//     }
-// },
-// wordSwitch(first, second){
-// const temp =first
-// first=second
-// second=temp
-// },
-// colorSwitch(piece, part){
-//     console.log(piece)
-// console.log(piece.querySelector('button'))
-// console.log(part.querySelector('button'))
-// const temp=piece.querySelector('button').style.backgroundColor
-// piece.querySelector('button').style.backgroundColor=part.querySelector('button').style.backgroundColor
-// part.querySelector('button').style.backgroundColor=temp
-// },
+},
+
 
 }
 app.init({formSelector: '#flick-form',
   listSelector: '#flick-list',
-  templateSelector: '.flick.template'
+  templateSelector: '.flick.template',
+
 })
+
+
+ 
